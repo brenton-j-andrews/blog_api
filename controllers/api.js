@@ -7,13 +7,14 @@ let Post = require('../models/post');
 
 // GET request for home page.
 exports.home_page_get = function(req, res, next) {
+
     Post.find()
-    .populate('author')
-    .exec(function (err, output) {
+    .populate('author', 'username')
+    .exec(function (err, result) {
         if (err) {
             return next(err);
         }
 
-        console.log(output);
+        res.json(result);
     });
 }
