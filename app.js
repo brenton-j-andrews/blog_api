@@ -20,6 +20,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 // Import models.
 let Post = require("./models/post");
+let Comment = require("./models/comments");
 let User = require("./models/user");
 
 // View engine setup

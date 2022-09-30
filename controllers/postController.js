@@ -1,35 +1,42 @@
 // POST CONTROLLER 
-
 let mongoose = require('mongoose');
+let async = require('async');
 
 let User = require('../models/user');
 let Post = require('../models/post');
+let Comment = require('../models/comments'); 
 
-// GET request for home page.
-exports.home_page_get = function(req, res, next) {
+// GET all post data.
+exports.post_data_get = function(req, res, next) {
 
-    Post.find()
-    .populate('author', 'username')
+    async.parallel({
+        posts: function(callback) {
+            Post.find()
+            .populate('author')
+            .exec(callback);
+        },
 
-    .exec(function (err, result) {
-        if (err) {
-            return next(err);
+        comments: function(callback) {
+            Comment.find({})
+            .exec(callback);
         }
 
-        res.json(result);
-    });
+    },  function(err, result) {
+            console.log(err);
+            if (err) { 
+                return next(err)
+            }
+            res.json(result);
+     })
 }
 
-// GET request for single article page.
-exports.article_page_get = function (req, res, next) {
-    Post.findById( req.params.id )
-    .populate('author', 'username')
+    // Post.find()
+    // .populate('author', 'username')
 
-    .exec(function (err, result) {
-        if (err) {
-            return next(err);
-        }
+    // .exec(function (err, result) {
+    //     if (err) {
+    //         return next(err);
+    //     }
 
-        res.json(result);
-    });
-}
+    //     res.json(result);
+    // });
