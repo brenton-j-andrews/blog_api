@@ -17,3 +17,15 @@ exports.get_posts = function(req, res, next) {
         res.json(result);
     });
 };
+
+// GET single post for viewing.
+exports.get_single_post = function(req, res, next) {
+    Post.findById(req.params.id)
+    .exec( function (err, result) {
+        if (err) {
+            return next(err);
+        }
+
+        res.json(result);
+    })
+}
