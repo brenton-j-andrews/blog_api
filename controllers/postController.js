@@ -2,33 +2,18 @@
 let mongoose = require('mongoose');
 let async = require('async');
 
-let Post = require('../models/post');
+let Post = require("../models/post");
 
+// GET all posts for home page.
+exports.get_posts = function(req, res, next) {
 
-// // GET all post data.
-// exports.post_data_GET = function(req, res, next) {
+    Post.find()
+    .populate('author')
+    .exec( function (err, result) {
+        if (err) {
+            return next(err);
+        }
 
-//     async.parallel({
-//         posts: function(callback) {
-//             Post.find()
-//             .populate('author')
-//             .exec(callback);
-//         },
-
-//         comments: function(callback) {
-//             Comment.find({})
-//             .exec(callback);
-//         }
-
-//     },  function(err, result) {
-//             if (err) { 
-//                 return next(err)
-//             }
-//             res.json(result);
-//      })
-// }
-
-// // POST -> Create new comment on post.
-// exports.comment_data_POST = function(req, res, next) {
-//     console.log("hmmm");
-// }
+        res.json(result);
+    });
+};

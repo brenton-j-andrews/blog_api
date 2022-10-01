@@ -4,12 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+let helmet = require('helmet');
 let dotenv = require('dotenv').config();
 let mongoose = require('mongoose');
 let cors = require('cors');
 
 var indexRouter = require('./routes/index');
-var apiRouter = require('./routes/api');
+var apiRouter = require('./routes/api_routes');
 
 
 // Mongoose Connection Config
@@ -26,6 +27,7 @@ let User = require("./models/user");
 // View engine setup
 var app = express();
 app.use(cors());
+app.use(helmet());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -53,5 +55,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+ 
 module.exports = app;

@@ -16,4 +16,4 @@ PostSchema.virtual('formatted_date')
 })
 
 // Export model.
-module.exports = mongoose.model('PostSchema's
+module.exports = mongoose.model('Post', PostSchema);
