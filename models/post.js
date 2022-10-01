@@ -1,12 +1,19 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let PostSchema = new Schema({
-    author : {type: Schema.Types.ObjectId, required: true, ref: 'User'},
-    title : {type: String, required: true, maxLength: 60},
-    postContent : {type: String, required: true},
-    timestamp : {type: Date, required: true}
+const PostSchema = new Schema({
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    text: { type: String, required: true },
+    date: { default: Date.now(), type: Date, required: true }
+})
+
+// Modify date value to desired format.
+PostSchema.virtual('formatted_date')
+.get(function() {
+    console.log(this.date.toLocaleDateString('en-US'));
+    return this.date.toLocaleString('en-US');
 })
 
 // Export model.
-module.exports = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model('PostSchema's

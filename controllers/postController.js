@@ -2,41 +2,33 @@
 let mongoose = require('mongoose');
 let async = require('async');
 
-let User = require('../models/user');
 let Post = require('../models/post');
-let Comment = require('../models/comments'); 
 
-// GET all post data.
-exports.post_data_get = function(req, res, next) {
 
-    async.parallel({
-        posts: function(callback) {
-            Post.find()
-            .populate('author')
-            .exec(callback);
-        },
+// // GET all post data.
+// exports.post_data_GET = function(req, res, next) {
 
-        comments: function(callback) {
-            Comment.find({})
-            .exec(callback);
-        }
+//     async.parallel({
+//         posts: function(callback) {
+//             Post.find()
+//             .populate('author')
+//             .exec(callback);
+//         },
 
-    },  function(err, result) {
-            console.log(err);
-            if (err) { 
-                return next(err)
-            }
-            res.json(result);
-     })
-}
+//         comments: function(callback) {
+//             Comment.find({})
+//             .exec(callback);
+//         }
 
-    // Post.find()
-    // .populate('author', 'username')
+//     },  function(err, result) {
+//             if (err) { 
+//                 return next(err)
+//             }
+//             res.json(result);
+//      })
+// }
 
-    // .exec(function (err, result) {
-    //     if (err) {
-    //         return next(err);
-    //     }
-
-    //     res.json(result);
-    // });
+// // POST -> Create new comment on post.
+// exports.comment_data_POST = function(req, res, next) {
+//     console.log("hmmm");
+// }

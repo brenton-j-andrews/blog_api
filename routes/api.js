@@ -5,6 +5,10 @@ var router = express.Router();
 let postController = require("../controllers/postController");
 
 // Fetch all post data.
-router.get('/posts', postController.post_data_get);
+router.get('/posts', postController.post_data_GET);
+
+// Create comment on post.
+router.post('/post/:id', postController.comment_data_POST);
+
 
 module.exports = router;
