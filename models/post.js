@@ -5,7 +5,7 @@ const PostSchema = new Schema({
     title: { type: String, required: true },
     author: { type: String, required: true },
     text: { type: String, required: true },
-    date: { default: Date.now(), type: Date, required: true }
+    date: { default: Date.now(), type: Date }
 })
 
 // Modify date value to desired format.
