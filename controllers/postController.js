@@ -69,7 +69,21 @@ exports.post_create_post = [
                 return next(err);
             }
 
-            res.redirect('/post' + post._id);
+            res.redirect('/post/' + post._id);
         })
     }
 ]
+
+// DELETE - Delete selected post.
+exports.delete_post = function(req, res, next) {
+    console.log(req.params.id);
+    Post.deleteOne({ _id : req.params.id },
+        function(err, result) {
+            if (err) {
+                return next(err);
+            }
+
+            return res.redirect('/');
+        }
+    )
+}

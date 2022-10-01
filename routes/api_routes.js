@@ -13,4 +13,7 @@ router.get('/post/:id', postController.get_single_post);
 // Create new post on POST from '/create_post' page/
 router.post('/create_post', postController.post_create_post);
 
+// Delete post 
+router.delete('/post/:id', postController.delete_post);
+
 module.exports = router;
