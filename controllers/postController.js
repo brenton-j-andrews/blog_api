@@ -47,36 +47,33 @@ exports.post_create_post = [
 
     // Process data.
     (req, res, next) => {
-        let persistant_data = req.body;
-        console.log(persistant_data);
-
+        
+        // Used for returning data to form if errors in client.
         const errors = validationResult(req);
+        console.log(errors);
 
         if (!errors.isEmpty()) {
-            // console.log(errors);
-            res.send("you got errors dude! Figure this out in a bit...");
+            return res.status(400).send({ errors : errors.array() });
         }
 
         let post = new Post({
             title: req.body.title,
             author: req.body.author,
             text: req.body.text,
-            // date: req.body.date
         });
 
-        post.save(function(err) {
+        post.save(function(err, post) {
             if (err) {
-                return next(err);
+                return res.json(err);
             }
 
-            res.redirect('/post/' + post._id);
+            return res.json(post);
         })
     }
 ]
 
 // DELETE - Delete selected post.
 exports.delete_post = function(req, res, next) {
-    console.log(req.params.id);
     Post.deleteOne({ _id : req.params.id },
         function(err, result) {
             if (err) {
