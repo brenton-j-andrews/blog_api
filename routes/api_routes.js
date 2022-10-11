@@ -25,4 +25,7 @@ router.delete('/post/:id/delete', postController.delete_post);
 // Display all comments on specific post.
 router.get('/post/:id/comments', commentController.get_comments);
 
+// Create new comment on POST. 
+router.post('/post/:id/comments', commentController.create_comment);
+
 module.exports = router;

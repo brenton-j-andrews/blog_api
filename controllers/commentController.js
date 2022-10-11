@@ -23,5 +23,37 @@ exports.get_comments = function(req, res, next) {
 
 // POST - new comment on post.
 exports.create_comment = [
+   
+    body('author', "Author name is required")
+    .trim()
+    .isLength({ min: 1}),
 
+    body('text', "Comment text is required")
+    .trim()
+    .isLength({ min: 1}),
+
+    // Process data.
+    (req, res, next) => {
+        console.log(req.body);
+        // Used for returning data to form if errors in client.
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).send({ errors : errors.array() });
+        }
+
+        let comment = new Comment({
+            author: req.body.author,
+            text: req.body.text,
+            postRef: req.params.id
+        });
+
+        comment.save(function(err, comment) {
+            if (err) {
+                return res.json(err);
+            }
+
+            return res.json(comment);
+        })
+    }
 ]
