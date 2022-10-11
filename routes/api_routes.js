@@ -3,6 +3,7 @@ var router = express.Router();
 
 // Controller module import.
 let postController = require("../controllers/postController");
+let commentController = require("../controllers/commentController");
 
 // Display all posts on GET from home page.
 router.get('/posts', postController.get_posts);
@@ -18,5 +19,10 @@ router.post('/post/:id', postController.update_post);
 
 // Delete post 
 router.delete('/post/:id/delete', postController.delete_post);
+
+// COMMENT ROUTES.
+
+// Display all comments on specific post.
+router.get('/post/:id/comments', commentController.get_comments);
 
 module.exports = router;

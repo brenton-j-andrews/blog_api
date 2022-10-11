@@ -5,7 +5,7 @@ let CommentSchema = new Schema({
     author : {type: String, required: true},
     text: {type: String, required: true},
     date: { default: Date.now(), type: Date, required: true },
-    postRef : {type: Schema.Types.ObjectId, required: true, ref: 'Post'},
+    postRef : {type: String, required: true},
 })
 
 // Modify date value to desired format.
