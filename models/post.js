@@ -4,6 +4,7 @@ let Schema = mongoose.Schema;
 const PostSchema = new Schema({
     title: { type: String, required: true },
     author: { type: String, required: true },
+    description: { type: String , required: true },
     text: { type: String, required: true },
     date: { default: Date.now(), type: Date }
 })

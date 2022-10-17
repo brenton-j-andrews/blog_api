@@ -10,6 +10,7 @@ exports.get_posts = function(req, res, next) {
 
     Post.find()
     .populate('author')
+    .sort({ "date" : "descending"})
     .exec( function (err, result) {
         if (err) {
             return next(err);
@@ -42,6 +43,10 @@ exports.post_create_post = [
     .trim()
     .isLength({ min: 1}),
 
+    body('description', 'A short description is required.')
+    .trim()
+    .isLength({ min: 1, max: 60}),
+
     body('text', "Post text is required")
     .trim()
     .isLength({ min: 1}),
@@ -59,6 +64,7 @@ exports.post_create_post = [
         let post = new Post({
             title: req.body.title,
             author: req.body.author,
+            description: req.body.description,
             text: req.body.text,
         });
 
@@ -83,6 +89,10 @@ exports.update_post = [
     .trim()
     .isLength({ min: 1}),
 
+    body('description', 'A short description is required.')
+    .trim()
+    .isLength({ min: 1, max: 60}),
+
     body('text', "Post text is required")
     .trim()
     .isLength({ min: 1}),
@@ -92,7 +102,6 @@ exports.update_post = [
         
         // Used for returning data to form if errors in client.
         const errors = validationResult(req);
-        console.log(req.body);
 
         if (!errors.isEmpty()) {
             return res.status(400).send({ errors : errors.array() });
@@ -102,6 +111,7 @@ exports.update_post = [
             {
                 "title" : req.body.title,
                 "author" : req.body.author,
+                "description" : req.body.description,
                 "text" : req.body.text,
             },
 
